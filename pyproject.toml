@@ -1,0 +1,16 @@
+[project]
+name = "uv-aws-lambda-example"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    # FastAPI is a modern web framework for building APIs with Python.
+    "fastapi",
+    # Mangum is a library that adapts ASGI applications to AWS Lambda and API Gateway.
+    "mangum",
+]
+
+[dependency-groups]
+dev = [
+    # In development mode, include the FastAPI development server.
+    "fastapi[standard]",
+]

@@ -3,8 +3,11 @@ FROM ghcr.io/astral-sh/uv:latest AS uv
 # First, bundle the dependencies into the task root.
 FROM public.ecr.aws/lambda/python:3.13 AS builder
 
-# Enable bytecode compilation.
+# Enable bytecode compilation, to improve cold-start performance.
 ENV UV_COMPILE_BYTECODE=1
+
+# Disable installer metadata, to create a deterministic layer.
+ENV UV_NO_INSTALLER_METADATA=1
 
 # Enable copy mode to support bind mount caching.
 ENV UV_LINK_MODE=copy

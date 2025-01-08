@@ -67,7 +67,7 @@ $ aws lambda create-function \
    --function-name myFunction \
    --package-type Image \
    --code ImageUri=aws_account_id.dkr.ecr.region.amazonaws.com/fastapi-app:latest \
-   --role arn:aws:iam::111122223333:role/lambda-ex
+   --role arn:aws:iam::111122223333:role/my-lambda-role
 ```
 
 Where the [execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html#permissions-executionrole-api)
@@ -75,7 +75,7 @@ is created via:
 
 ```console
 $ aws iam create-role \
-   --role-name lambda-ex \
+   --role-name my-lambda-role \
    --assume-role-policy-document '{"Version": "2012-10-17","Statement": [{ "Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]}'
 ```
 
@@ -98,9 +98,10 @@ To create a zip archive:
 ```console
 $ uv export --frozen --no-dev --no-editable -o requirements.txt
 $ uv pip install \
+   --no-installer-metadata \
    --no-compile-bytecode \
    --python-platform x86_64-manylinux2014 \
-   --python-version 3.13 \
+   --python 3.13 \
    --target packages \
    -r requirements.txt
 $ cd packages
@@ -115,7 +116,7 @@ To deploy the zip archive to AWS Lambda:
 $ aws lambda create-function \
    --function-name myFunction \
    --runtime python3.13 \
-   --zip-file fileb://package.zip
+   --zip-file fileb://package.zip \
    --handler app.main.handler \
    --role arn:aws:iam::111122223333:role/service-role/my-lambda-role
 ```
@@ -125,7 +126,7 @@ is created via:
 
 ```console
 $ aws iam create-role \
-   --role-name lambda-ex \
+   --role-name my-lambda-role \
    --assume-role-policy-document '{"Version": "2012-10-17","Statement": [{ "Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]}'
 ```
 

@@ -82,7 +82,6 @@ $ aws iam create-role \
 To update the Lambda function:
 
 ```console
-```console
 $ aws lambda update-function-code \
    --function-name myFunction \
    --image-uri aws_account_id.dkr.ecr.region.amazonaws.com/fastapi-app:latest \

@@ -14,3 +14,7 @@ dev = [
     # In development mode, include the FastAPI development server.
     "fastapi[standard]",
 ]
+
+[tool.uv]
+require-build-hashes = true
+preview-features = ["build-dependency-hashes"]
